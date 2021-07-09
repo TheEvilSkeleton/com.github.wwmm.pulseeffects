@@ -36,13 +36,15 @@ add-extensions:
     no-autodownload: true
 
 modules:
-  - name: pulseeffects
+  - name: easyeffects
     buildsystem: meson
+    build-options:
+      cxxflags "-std=c++20"
     sources:
       - type: git
-        url: 'https://github.com/wwmm/pulseeffects.git'
-        tag: v5.0.3
-        commit: 720da56136f70aa832ee0ac7370bd0e3c504a88e
+        url: 'https://github.com/wwmm/easyeffects.git'
+        tag: v6.0.0
+        commit: 2ee3f0b76f400c70c80691f5c8018d6dfec525e9
     post-install:
       - install -Dm644 -t $FLATPAK_DEST/share/licenses/com.github.wwmm.pulseeffects ../LICENSE.md
       - mkdir -pm755 /app/extensions/Plugins
@@ -357,3 +359,17 @@ modules:
             url: https://gitlab.freedesktop.org/pipewire/pipewire.git
             tag: 0.3.28
             commit: fb55cc4786ce5e78b0987248dd44e54daec77f80
+      - name: meson
+        buildsystem: simple
+        build-commands:
+          - 'pip3 install --ignore-installed --exists-action=i --no-index --find-links="file://${PWD}" --prefix=/app "meson"'
+        sources:
+          - type: file
+            url: https://files.pythonhosted.org/packages/ed/46/e298a50dde405e1c202e316fa6a3015ff9288423661d7ea5e8f22f589071/wheel-0.36.2.tar.gz
+            sha256: e11eefd162658ea59a60a0f6c7d493a7190ea4b9a85e335b33489d9f17e0245e
+          - type: file
+            url: https://files.pythonhosted.org/packages/cf/79/1a19c2f792da00cbead7b6caa176afdddf517522cb9163ce39576025b050/setuptools-57.1.0.tar.gz
+            sha256: cfca9c97e7eebbc8abe18d5e5e962a08dcad55bb63afddd82d681de4d22a597b
+          - type: file
+            url: https://files.pythonhosted.org/packages/e6/e4/11fc433adb18567dcf90041c54e5e65b03e9451bc1a45f9cd2dac9e9bb05/meson-0.58.1.tar.gz
+            sha256: 3144a3da662fcf79f1e5602fa929f2821cba4eba28c2c923fe0a7d3e3db04d5d
